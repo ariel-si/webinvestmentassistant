@@ -1,0 +1,11 @@
+form {
+    margin: 15%;
+    margin-left: 30%;
+    margin-right: 30%;
+    padding: 20px;
+    background-color: powderblue;
+}
+
+#login-popup {
+  display: none;
+}

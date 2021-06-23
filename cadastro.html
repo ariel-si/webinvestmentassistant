@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Dashboard Template · Bootstrap v5.0</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="style.css"
+    
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <style>
+      #chartdiv{
+            width: 100%;
+            height: 500px;;
+      }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      header {
+        position: fixed;
+      }
+    </style>
+
+    
+    <link href="dashboard.css" rel="stylesheet">
+    <script>
+    
+      function limpa_formulário_cep() {
+              //Limpa valores do formulário de cep.
+              document.getElementById('rua').value=("");
+              document.getElementById('bairro').value=("");
+              document.getElementById('cidade').value=("");
+              document.getElementById('uf').value=("");
+      }
+  
+      function meu_callback(conteudo) {
+          if (!("erro" in conteudo)) {
+              //Atualiza os campos com os valores.
+              document.getElementById('rua').value=(conteudo.logradouro);
+              document.getElementById('bairro').value=(conteudo.bairro);
+              document.getElementById('cidade').value=(conteudo.localidade);
+              document.getElementById('uf').value=(conteudo.uf);
+
+          } //end if.
+          else {
+              //CEP não Encontrado.
+              limpa_formulário_cep();
+              alert("CEP não encontrado.");
+          }
+      }
+          
+      function pesquisacep(valor) {
+  
+          //Nova variável "cep" somente com dígitos.
+          var cep = valor.replace(/\D/g, '');
+  
+          //Verifica se campo cep possui valor informado.
+          if (cep != "") {
+  
+              //Expressão regular para validar o CEP.
+              var validacep = /^[0-9]{8}$/;
+  
+              //Valida o formato do CEP.
+              if(validacep.test(cep)) {
+  
+                  //Preenche os campos com "..." enquanto consulta webservice.
+                  document.getElementById('rua').value="...";
+                  document.getElementById('bairro').value="...";
+                  document.getElementById('cidade').value="...";
+                  document.getElementById('uf').value="...";
+  
+                  //Cria um elemento javascript.
+                  var script = document.createElement('script');
+  
+                  //Sincroniza com o callback.
+                  script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+  
+                  //Insere script no documento e carrega o conteúdo.
+                  document.body.appendChild(script);
+  
+              } //end if.
+              else {
+                  //cep é inválido.
+                  limpa_formulário_cep();
+                  alert("Formato de CEP inválido.");
+              }
+          } //end if.
+          else {
+              //cep sem valor, limpa formulário.
+              limpa_formulário_cep();
+          }
+      };
+  
+      </script>
+    <title>Documento</title>
+</head>
+<body>
+  <div id="login-popup">
+    <form id="login" class="border border-dark rounded">
+        <div>
+          <div id="fechar">
+            <button class="btn btn-close float-end" onclick="closeForm();"></button>
+          </div>
+            <div class="form-group">
+            <label for="exampleInputEmail1">Email:</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Insira seu email">
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Senha:</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Insira sua senha">
+          </div>
+          <br>
+          <button type="submit" class="btn btn-dark">Login</button>
+        </div>
+      </form>
+</div>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="TIU.html">Home</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Pesquisar" aria-label="Pesquisar">
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#">Procurar</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" onclick="openForm();" href="#">Login</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="cadastro.html">Cadastro</a>
+          </li>
+        </ul>
+      </header>
+      <div id="blur" class="animaçãoblur">
+      <h1 class="mt-5 ms-5">Cadastro</h1>
+      <br>
+      <div class="ms-5">
+        <form method="get" action=".">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputName">Nome:</label>
+              <input id="inputName" type="text" class="form-control" placeholder="" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputName">Sobrenome:</label>
+              <input id="inputName" type="text" class="form-control" placeholder="" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Email:</label>
+              <input type="email" class="form-control" id="inputEmail4" placeholder="" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Senha:</label>
+              <input type="password" class="form-control" id="inputPassword4" placeholder="" required>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Data de Nascimento:</label>
+            <input type="date" class="form-control" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Cep:</label>
+              <input class="form-control" type="text" id="cep" onblur="pesquisacep(this.value);" required>
+            </div>
+              <div class="form-group col-md-6">
+                <label>Rua:</label>
+                <input type="text" class="form-control" id="rua" disabled>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Bairro:</label>
+                <input type="text" class="form-control" id="bairro" disabled>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Cidade:</label>
+                <input type="text" class="form-control" id="cidade" disabled>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Estado:</label>
+                <input type="text" class="form-control" id="uf" disabled>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Complemento:</label>
+                <input type="text" class="form-control">
+              </div>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-dark" onclick="">Cadastrar</button>
+          <br>
+          <br>
+          <br>
+        </form>
+      </div>
+    </div>
+    <script>
+      var login = document.getElementById("login-popup");
+  
+      function openForm() {
+      login.style.display = "block";
+      document.getElementById("blur").style.filter = "blur(2px)";
+      }
+  
+      function closeForm() {
+        login.style.display = "none";
+        document.getElementById("blur").style.filter = "";
+      }
+  
+      window.onclick = function(event) {
+    if (event.target == login) {
+      login.style.display = "none";
+      document.getElementById("blur").style.filter = "";
+    }
+  }
+    </script>
+</body>
+</html>

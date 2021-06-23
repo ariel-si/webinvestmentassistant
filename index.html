@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <title>Dashboard Template · Bootstrap v5.0</title>
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="style.css" <!-- Bootstrap core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <title>Forex</title>
+	<link rel="icon" href="img/favicon.jpg">
+  <link href="dashboard.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div id="login-popup">
+    <form id="login" class="border border-dark rounded">
+      <div>
+        <div id="fechar">
+          <a class="btn btn-close float-end" onclick="closeForm();" role="button"></a>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email:</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            placeholder="Insira seu email" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Senha:</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Insira sua senha" required>
+        </div>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-dark" style="width: 398px;">Login</button>
+      </div>
+    </form>
+  </div>
+
+  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="TIU.html">Home</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+      data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Pesquisar" aria-label="Pesquisar">
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" href="#">Procurar</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" onclick="openForm();" role="button">Login</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" href="cadastro.html">Cadastro</a>
+      </li>
+    </ul>
+  </header>
+  <div id="blur">
+    <div class="container-fluid" id="blurside">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" onclick="graficos();" role="button">
+                  <span data-feather="home"></span>
+                  Gráficos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="noticias();" role="button">
+                  <span data-feather="file"></span>
+                  Notícias
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <div id="graficos" class="animaçãoblur">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2 animaçãoblur">Gráfico do Mercado Financeiro</h1>
+              <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                  <span data-feather="calendar"></span>
+                  Esta Semana
+                </button>
+              </div>
+            </div>
+
+            <div class="container">
+              <form class="row justify-content-center" method="post" enctype="multipart/form-data" id="formCanvas">
+                <div class="col-12 col-md-4 col-lg-3">
+                  <label for="from_symbol">De Moeda</label>
+                  <input type="text" name="from_symbol" id="from_symbol" class="form-control" required="" />
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                  <label for="to_symbol">Para Moeda</label>
+                  <input type="text" name="to_symbol" id="to_symbol" class="form-control" required="" />
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                  <label for="qtd_days">Quantidade de Dias</label>
+                  <input type="number" name="qtd_days" id="qtd_days" class="form-control" required="" />
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                  <label for="" class="w-100"></label>
+                  <button class="btn btn-dark btn-submit">Buscar</button>
+                </div>
+              </form>
+              <span id="startCanvas"></span>
+            </div>
+          
+            <script src="js/popper.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/bootstrap.bundle.min.js"></script>
+            <script src="js/Chart.min.js"></script>
+            <script src="js/Chart.bundle.min.js"></script>
+            <script src="js/scripts.js"></script>
+         
+            <div class="animaçãoblur justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" id="noticias">
+            <h2>Notícias</h2>
+            <hr>
+            <div class="table-responsive">
+              <table class="table table-striped table-sm">
+                <div class="largeTitle">
+                  <article class="js-article-item articleItem   " data-id="868914">
+                    <a href="/news/stock-market-news/wall-st-encerra-em-queda-pressionada-por-acoes-de-tecnologia-868914"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/external-images-thumbnails/LYNXNPEH4G14B_L.jpg"
+                        alt="Wall St encerra em queda, pressionada por ações de tecnologia"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/external-images-thumbnails/LYNXNPEH4G14B_L.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/wall-st-encerra-em-queda-pressionada-por-acoes-de-tecnologia-868914"
+                        title="Wall St encerra em queda, pressionada por ações de tecnologia" class="title">Wall St
+                        encerra em queda, pressionada por ações de tecnologia</a>
+                      <span class="articleDetails"><span>Por Reuters</span><span class="date">&nbsp;-&nbsp;15 minutos
+                          atrás</span></span>
+                      <p> Por Echo Wang
+                        (Reuters) - Os mercados acionários em Wall Street encerraram em baixa nesta segunda-feira,
+                        pressionados pelas ações de tecnologia, conforme sinais de inflação...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868895">
+                    <a href="/news/stock-market-news/investidor-em-empresas-de-tecnologia-invest-tech-pede-registro-para-ipo-868895"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXMPED2M18V_S.jpg"
+                        alt="Investidor em empresas de tecnologia Invest Tech pede registro para IPO"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPED2M18V_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/investidor-em-empresas-de-tecnologia-invest-tech-pede-registro-para-ipo-868895"
+                        title="Investidor em empresas de tecnologia Invest Tech pede registro para IPO"
+                        class="title">Investidor em empresas de tecnologia Invest Tech pede registro para IPO</a>
+                      <span class="articleDetails"><span>Por Reuters</span><span class="date">&nbsp;-&nbsp;19 minutos
+                          atrás</span></span>
+                      <p> SÃO PAULO (Reuters) - A gestora de ativos de empresas de tecnologia Invest Tech pediu nesta
+                        segunda-feira registro da Comissão de Valores Mobiliários (CVM) para fazer uma oferta...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868906">
+                    <a href="/news/stock-market-news/goleiro-bruno-nao-aguenta-1-semana-no-day-trade-e-volta-para-o-futebol-868906"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/external-images-thumbnails/pic4fc040c8c2ea44a665fa68f6e733bc29.jpg"
+                        alt="Goleiro Bruno não aguenta 1 semana no day trade e volta para o futebol"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/external-images-thumbnails/pic4fc040c8c2ea44a665fa68f6e733bc29.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/goleiro-bruno-nao-aguenta-1-semana-no-day-trade-e-volta-para-o-futebol-868906"
+                        title="Goleiro Bruno não aguenta 1 semana no day trade e volta para o futebol"
+                        class="title">Goleiro Bruno não aguenta 1 semana no day trade e volta para o futebol</a>
+                      <span class="articleDetails"><span>Por CriptoFácil</span><span class="date">&nbsp;-&nbsp;20
+                          minutos atrás</span></span>
+                      <p>Durou pouco a “carreira” do ex-goleiro Bruno Fernandes, o “goleiro Bruno”, no ramo de day
+                        trade. Nesta segunda-feira (17), ele retomou as atividades como...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868889">
+                    <a href="/news/stock-market-news/multilaser-retoma-pedido-para-ipo-868889" class="img"><img
+                        class=" lazyloaded" data-src="https://i-invdn-com.akamaized.net/news/LYNXMPED1J16J_S.jpg"
+                        alt="Multilaser retoma pedido para IPO"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPED1J16J_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/multilaser-retoma-pedido-para-ipo-868889"
+                        title="Multilaser retoma pedido para IPO" class="title">Multilaser retoma pedido para IPO</a>
+                      <span class="articleDetails"><span>Por Reuters</span><span class="date">&nbsp;-&nbsp;40 minutos
+                          atrás</span></span>
+                      <p> SÃO PAULO (Reuters) - A empresa de produtos eletrônicos Multilaser retomou nesta segunda-feira
+                        o processo para realizar sua oferta inicial de ações (IPO, na sigla em inglês), um...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868885">
+                    <a href="/news/stock-market-news/xp-da-acesso-a-novo-fundo-da-bridgewater-investimento-inicial-e-de-r-500-868885"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/XPInc_150x108_S_1615890546.jpg"
+                        alt="XP dá acesso a novo fundo da Bridgewater; investimento inicial é de R$ 500"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/XPInc_150x108_S_1615890546.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/xp-da-acesso-a-novo-fundo-da-bridgewater-investimento-inicial-e-de-r-500-868885"
+                        title="XP dá acesso a novo fundo da Bridgewater; investimento inicial é de R$ 500"
+                        class="title">XP dá acesso a novo fundo da Bridgewater; investimento inicial é de R$ 500</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;52
+                          minutos atrás</span></span>
+                      <p>Investing.com - A XP (NASDAQ:XP) lançou nesta segunda-feira (17) um novo fundo de investimento
+                        que acessa a estratégia Macro Global Central da Lyxor e da Bridgewater, com opções em...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868860">
+                    <a href="/news/stock-market-news/diretoria-da-isa-cteep-tem-maior-numero-de-mulheres-do-setor-eletrico-brasileiro-868860"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEE6C1R0_S.jpg"
+                        alt="Diretoria da ISA Cteep tem maior número de mulheres do setor elétrico brasileiro"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEE6C1R0_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/diretoria-da-isa-cteep-tem-maior-numero-de-mulheres-do-setor-eletrico-brasileiro-868860"
+                        title="Diretoria da ISA Cteep tem maior número de mulheres do setor elétrico brasileiro"
+                        class="title">Diretoria da ISA Cteep tem maior número de mulheres do setor elétrico
+                        brasileiro</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;1 hora
+                          atrás</span>
+                        <a href="/news/stock-market-news/diretoria-da-isa-cteep-tem-maior-numero-de-mulheres-do-setor-eletrico-brasileiro-868860#comments"
+                          class="js-scrollto-comment commentsBubbleCnt"><i class="commentIcon"></i>2</a>
+                      </span>
+                      <p>Por Ana Carolina Siedschlag
+                        Investing.com - A ISA Cteep&nbsp;(SA:TRPL4) se tornou a empresa do setor elétrico brasileiro com
+                        mais mulheres a ocuparem cargos de diretoria...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="articleItem dfp-native">
+                    <div id="div-gpt-ad-1513094451186-0" data-slot-id="/6938/FP_BR_site/FP_BR_Native_Content_1"
+                      style="text-align:center;" data-google-query-id="CLij4tLH0fACFZAPuQYd8tcHOA">
+                      <div id="google_ads_iframe_/6938/FP_BR_site/FP_BR_Native_Content_1_0__container__"
+                        style="border: 0pt none; visibility: visible; min-width: 100%;"><iframe
+                          id="google_ads_iframe_/6938/FP_BR_site/FP_BR_Native_Content_1_0" title="3rd party ad content"
+                          name="google_ads_iframe_/6938/FP_BR_site/FP_BR_Native_Content_1_0" width="652" height="64"
+                          scrolling="no" marginwidth="0" marginheight="0" frameborder="0"
+                          sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+                          allow="conversion-measurement 'src'" srcdoc=""
+                          style="border: 0px; vertical-align: bottom; min-width: 100%;" data-google-container-id="6"
+                          data-load-complete="true"></iframe></div>
+                    </div>
+                    <div>
+                      <script> $(function () { $.initSlot("/6938/FP_BR_site/FP_BR_Native_Content_1", "div-gpt-ad-1513094451186-0") });</script>
+                    </div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868828">
+                    <a href="/news/stock-market-news/franca-aprova-licenciamento-de-servicos-de-google-e-microsoft-para-protecao-de-dados-868828"
+                      class="img"><img class=" ls-is-cached lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEA690ZC_S.jpg"
+                        alt="França aprova licenciamento de serviços de Google e Microsoft para proteção de dados"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEA690ZC_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/franca-aprova-licenciamento-de-servicos-de-google-e-microsoft-para-protecao-de-dados-868828"
+                        title="França aprova licenciamento de serviços de Google e Microsoft para proteção de dados"
+                        class="title">França aprova licenciamento de serviços de Google e Microsoft para proteção de
+                        dados</a>
+                      <span class="articleDetails"><span>Por Reuters</span><span class="date">&nbsp;-&nbsp;1 hora
+                          atrás</span></span>
+                      <p> Por Mathieu Rosemain PARIS (Reuters) - Alguns dos dados de empresas e de governo mais
+                        confidenciais da França podem ser guardados com segurança usando a tecnologia de...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868847">
+                    <a href="/news/stock-market-news/meliuz-registra-lucro-de-r-3-mi-no-1t-numero-de-contas-sobe-73-868847"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEE3P20V_S.jpg"
+                        alt="Méliuz registra lucro de R$ 3 mi no 1T; número de contas sobe 73%"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEE3P20V_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/meliuz-registra-lucro-de-r-3-mi-no-1t-numero-de-contas-sobe-73-868847"
+                        title="Méliuz registra lucro de R$ 3 mi no 1T; número de contas sobe 73%" class="title">Méliuz
+                        registra lucro de R$ 3 mi no 1T; número de contas sobe 73%</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;1 hora
+                          atrás</span>
+                        <a href="/news/stock-market-news/meliuz-registra-lucro-de-r-3-mi-no-1t-numero-de-contas-sobe-73-868847#comments"
+                          class="js-scrollto-comment commentsBubbleCnt"><i class="commentIcon"></i>1</a>
+                      </span>
+                      <p>Investing.com - O Méliuz (SA:CASH3), plataforma de cashback, apresentou lucro líquido de R$
+                        3,01 milhões no primeiro trimestre, quase metade do registrado há um ano, explicado...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="articleItem dfp-native">
+                    <div id="div-gpt-ad-1513094475409-0" data-slot-id="/6938/FP_BR_site/FP_BR_Native_Content_2"
+                      style="text-align:center;" data-google-query-id="CL6xjNPH0fACFbw1uQYdyhsJIg">
+                      <div id="google_ads_iframe_/6938/FP_BR_site/FP_BR_Native_Content_2_0__container__"
+                        style="border: 0pt none; visibility: visible; min-width: 100%;"><iframe
+                          id="google_ads_iframe_/6938/FP_BR_site/FP_BR_Native_Content_2_0" title="3rd party ad content"
+                          name="google_ads_iframe_/6938/FP_BR_site/FP_BR_Native_Content_2_0" width="652" height="64"
+                          scrolling="no" marginwidth="0" marginheight="0" frameborder="0"
+                          sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+                          allow="conversion-measurement 'src'" srcdoc=""
+                          style="border: 0px; vertical-align: bottom; min-width: 100%;" data-google-container-id="7"
+                          data-load-complete="true"></iframe></div>
+                    </div>
+                    <div>
+                      <script> $(function () { $.initSlot("/6938/FP_BR_site/FP_BR_Native_Content_2", "div-gpt-ad-1513094475409-0") });</script>
+                    </div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868836">
+                    <a href="/news/stock-market-news/acoes-meme-sobem-com-movimento-de-short-squeeze-da-amc-no-twitter-868836"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/AMCEntertainment_150x108_S_1612893129.jpg"
+                        alt="Ações “meme” sobem com movimento de short squeeze da AMC no Twitter"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/AMCEntertainment_150x108_S_1612893129.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/acoes-meme-sobem-com-movimento-de-short-squeeze-da-amc-no-twitter-868836"
+                        title="Ações “meme” sobem com movimento de short squeeze da AMC no Twitter" class="title">Ações
+                        “meme” sobem com movimento de short squeeze da AMC no Twitter</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;2 horas
+                          atrás</span></span>
+                      <p>Por Dhirendra Tripathi
+                        Investing.com - AMC Entertainment (NYSE:AMC), GameStop (NYSE:GME) e Koss (NASDAQ:KOSS) subiam na
+                        segunda-feira (17) em meio a indicações de que os...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868832">
+                    <a href="/news/stock-market-news/bolsas-da-europa-fecham-sem-direcao-unica-com-covid19-e-indicadores-da-china-868832"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEA7Q0CQ_S.jpg"
+                        alt="Bolsas da Europa fecham sem direção única, com covid-19 e indicadores da China"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEA7Q0CQ_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/bolsas-da-europa-fecham-sem-direcao-unica-com-covid19-e-indicadores-da-china-868832"
+                        title="Bolsas da Europa fecham sem direção única, com covid-19 e indicadores da China"
+                        class="title">Bolsas da Europa fecham sem direção única, com covid-19 e indicadores da China</a>
+                      <span class="articleDetails"><span>Por Estadão Conteúdo</span><span class="date">&nbsp;-&nbsp;2
+                          horas atrás</span></span>
+                      <p>As bolsas europeias fecharam sem direção única nesta segunda-feira, 17. O foco de investidores
+                        esteve voltado ao recrudescimento dos casos de covid-19 na...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868830">
+                    <a href="/news/stock-market-news/multilaser-e-invest-tech-protocolam-pedidos-de-ofertas-primarias-na-cvm-868830"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEE7C113_S.jpg"
+                        alt="Multilaser e Invest Tech protocolam pedidos de ofertas primárias na CVM"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEE7C113_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/multilaser-e-invest-tech-protocolam-pedidos-de-ofertas-primarias-na-cvm-868830"
+                        title="Multilaser e Invest Tech protocolam pedidos de ofertas primárias na CVM"
+                        class="title">Multilaser e Invest Tech protocolam pedidos de ofertas primárias na CVM</a>
+                      <span class="articleDetails"><span>Por Estadão Conteúdo</span><span class="date">&nbsp;-&nbsp;2
+                          horas atrás</span></span>
+                      <p>A Multilaser e a Invest Tech protocolaram, nos últimos dias, pedidos para oferta inicial
+                        pública (IPO, na sigla em inglês) na Comissão de Valores Mobiliários (CVM).
+                        Com as duas...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868739">
+                    <a href="/news/stock-market-news/ibovespa-supera-122-mil-pontos-apoiado-em-acoes-de-commodities-868739"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/BrazilStockMarketBovespa_150x108_S_1602506584.jpg"
+                        alt="Ibovespa supera 122 mil pontos, apoiado em ações de commodities"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/BrazilStockMarketBovespa_150x108_S_1602506584.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/ibovespa-supera-122-mil-pontos-apoiado-em-acoes-de-commodities-868739"
+                        title="Ibovespa supera 122 mil pontos, apoiado em ações de commodities" class="title">Ibovespa
+                        supera 122 mil pontos, apoiado em ações de commodities</a>
+                      <span class="articleDetails"><span>Por Reuters</span><span class="date">&nbsp;-&nbsp;2 horas
+                          atrás</span>
+                        <a href="/news/stock-market-news/ibovespa-supera-122-mil-pontos-apoiado-em-acoes-de-commodities-868739#comments"
+                          class="js-scrollto-comment commentsBubbleCnt"><i class="commentIcon"></i>20</a>
+                      </span>
+                      <p> SÃO PAULO (Reuters) - As ações brasileiras tinham tendência majoritária positiva nesta
+                        segunda-feira, com ações ligadas a commodities sustentando no azul o Ibovespa, que resistia...
+                      </p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868804">
+                    <a href="/news/stock-market-news/infracommerce-reverte-prejuizo-e-registra-lucro-de-r-39-mi-no-1t-868804"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXNPEE210QN_S.jpg"
+                        alt="Infracommerce reverte prejuízo e registra lucro de R$ 3,9 mi no 1T"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXNPEE210QN_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/infracommerce-reverte-prejuizo-e-registra-lucro-de-r-39-mi-no-1t-868804"
+                        title="Infracommerce reverte prejuízo e registra lucro de R$ 3,9 mi no 1T"
+                        class="title">Infracommerce reverte prejuízo e registra lucro de R$ 3,9 mi no 1T</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;3 horas
+                          atrás</span>
+                        <a href="/news/stock-market-news/infracommerce-reverte-prejuizo-e-registra-lucro-de-r-39-mi-no-1t-868804#comments"
+                          class="js-scrollto-comment commentsBubbleCnt"><i class="commentIcon"></i>1</a>
+                      </span>
+                      <p>Por Ana Carolina Siedschlag
+                        Investing.com - A Infracommerce (SA:IFCM3), de soluções para o varejo online, apresentou nesta
+                        segunda-feira (17) um lucro líquido de R$ 3,9 milhões no...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868803">
+                    <a href="/news/stock-market-news/acoes-europeias-fecham-estaveis-com-temores-sobre-sia-e-otimismo-sobre-reabertura-britanica-868803"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/external-images-thumbnails/LYNXNPEH4G0Y5_L.jpg"
+                        alt="Ações europeias fecham estáveis com temores sobre Ásia e otimismo sobre reabertura britânica"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/external-images-thumbnails/LYNXNPEH4G0Y5_L.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/acoes-europeias-fecham-estaveis-com-temores-sobre-sia-e-otimismo-sobre-reabertura-britanica-868803"
+                        title="Ações europeias fecham estáveis com temores sobre Ásia e otimismo sobre reabertura britânica"
+                        class="title">Ações europeias fecham estáveis com temores sobre Ásia e otimismo sobre reabertura
+                        britânica</a>
+                      <span class="articleDetails"><span>Por Reuters</span><span class="date">&nbsp;-&nbsp;3 horas
+                          atrás</span></span>
+                      <p>Por Shashank Nayar e Sruthi Shankar
+                        (Reuters) - As bolsas europeias fecharam estáveis nesta segunda-feira, já que dados chineses
+                        desanimadores e um ressurgimento de casos de...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868796">
+                    <a href="/news/stock-market-news/resultados-da-cemig-dividem-analistas-xp-mantem-como-neutra-868796"
+                      class="img"><img class=" ls-is-cached lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/Cemig_150x108_S_1615893203.jpg"
+                        alt="Resultados da Cemig dividem analistas; XP mantém como Neutra"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/Cemig_150x108_S_1615893203.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/resultados-da-cemig-dividem-analistas-xp-mantem-como-neutra-868796"
+                        title="Resultados da Cemig dividem analistas; XP mantém como Neutra" class="title">Resultados da
+                        Cemig dividem analistas; XP mantém como Neutra</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;3 horas
+                          atrás</span>
+                        <a href="/news/stock-market-news/resultados-da-cemig-dividem-analistas-xp-mantem-como-neutra-868796#comments"
+                          class="js-scrollto-comment commentsBubbleCnt"><i class="commentIcon"></i>2</a>
+                      </span>
+                      <p>Por Ana Carolina Siedschlag
+                        Investing.com - As ações preferenciais da Cemig (SA:CMIG4) subiam 0,9% nesta segunda-feira (17)
+                        após a companhia registrar lucro líquido de R$ 422,35...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868783">
+                    <a href="/news/stock-market-news/rede-dor-sobe-apos-resultados-fortes-para-o-1t-xp-ativa-recomendam-compra-868783"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXNPEC1I0TH_S.jpg"
+                        alt="Rede D’Or sobe após resultados fortes para o 1T; XP, Ativa recomendam Compra"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXNPEC1I0TH_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/rede-dor-sobe-apos-resultados-fortes-para-o-1t-xp-ativa-recomendam-compra-868783"
+                        title="Rede D’Or sobe após resultados fortes para o 1T; XP, Ativa recomendam Compra"
+                        class="title">Rede D’Or sobe após resultados fortes para o 1T; XP, Ativa recomendam Compra</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;3 horas
+                          atrás</span></span>
+                      <p>Por Ana Carolina Siedschlag
+                        Investing.com - As ações da Rede D’Or&nbsp;(SA:RDOR3) subiam 1,68% após a companhia registrar
+                        lucro líquido recorde de R$ 402,4 milhões no primeiro trimestre...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868764">
+                    <a href="/news/stock-market-news/amazon-sobe-apos-morgan-stanley-pintar-cenario-de-alta-com-precoalvo-de-us-6000-868764"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEE1B0L3_S.jpg"
+                        alt="Amazon sobe após Morgan Stanley pintar cenário de alta com preço-alvo de US$ 6.000"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEE1B0L3_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/amazon-sobe-apos-morgan-stanley-pintar-cenario-de-alta-com-precoalvo-de-us-6000-868764"
+                        title="Amazon sobe após Morgan Stanley pintar cenário de alta com preço-alvo de US$ 6.000"
+                        class="title">Amazon sobe após Morgan Stanley pintar cenário de alta com preço-alvo de US$
+                        6.000</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;4 horas
+                          atrás</span></span>
+                      <p>Por Dhirendra Tripathi
+                        Investing.com - As ações da Amazon (NASDAQ:AMZN)&nbsp;(SA:AMZO34) subiam em um mercado fraco
+                        após o Morgan Stanley definir um novo preço-alvo para os papéis: US$...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868751">
+                    <a href="/news/stock-market-news/coinbase-cai-seguindo-queda-das-criptomoedas-868751"
+                      class="img"><img class=" ls-is-cached lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXNPEE890EH_S.jpg"
+                        alt=" Coinbase cai seguindo queda das criptomoedas"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXNPEE890EH_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/coinbase-cai-seguindo-queda-das-criptomoedas-868751"
+                        title=" Coinbase cai seguindo queda das criptomoedas" class="title"> Coinbase cai seguindo queda
+                        das criptomoedas</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;4 horas
+                          atrás</span>
+                        <a href="/news/stock-market-news/coinbase-cai-seguindo-queda-das-criptomoedas-868751#comments"
+                          class="js-scrollto-comment commentsBubbleCnt"><i class="commentIcon"></i>2</a>
+                      </span>
+                      <p>Por Dhirendra Tripathi
+                        Investing.com - As ações da Coinbase (NASDAQ:COIN) caíam 6% na segunda-feira (17), com as
+                        criptomoedas sofrendo com as...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868742">
+                    <a href="/news/stock-market-news/cooperativa-aurora-assume-operacoes-do-grupo-agrodanieli-868742"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEB4G00K_S.jpg"
+                        alt="Cooperativa Aurora assume operações do grupo Agrodanieli"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEB4G00K_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/cooperativa-aurora-assume-operacoes-do-grupo-agrodanieli-868742"
+                        title="Cooperativa Aurora assume operações do grupo Agrodanieli" class="title">Cooperativa
+                        Aurora assume operações do grupo Agrodanieli</a>
+                      <span class="articleDetails"><span>Por Estadão Conteúdo</span><span class="date">&nbsp;-&nbsp;4
+                          horas atrás</span></span>
+                      <p>A Cooperativa Central Aurora Alimentos, de Chapecó (SC), assume nesta segunda-feira o comando
+                        das unidades de produção de aves do Grupo Agrodanieli adquiridas em março deste ano....</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868738">
+                    <a href="/news/stock-market-news/stellantis-e-foxconn-anunciarao-parceria-estrategica-na-tercafeira-868738"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/external-images-thumbnails/LYNXNPEH4G0TH_L.jpg"
+                        alt="Stellantis e Foxconn anunciarão parceria estratégica na terça-feira"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/external-images-thumbnails/LYNXNPEH4G0TH_L.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/stellantis-e-foxconn-anunciarao-parceria-estrategica-na-tercafeira-868738"
+                        title="Stellantis e Foxconn anunciarão parceria estratégica na terça-feira"
+                        class="title">Stellantis e Foxconn anunciarão parceria estratégica na terça-feira</a>
+                      <span class="articleDetails"><span>Por Reuters</span><span class="date">&nbsp;-&nbsp;4 horas
+                          atrás</span></span>
+                      <p>Por Giulio Piovaccari
+                        MILÃO (Reuters) - A montadora Stellantis (MI:STLA) e a fabricante de iPhone Foxconn (TW:2354)
+                        disseram nesta segunda-feira que anunciarão uma parceria...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868737">
+                    <a href="/news/stock-market-news/att-fecha-fusao-de-midias-com-discovery-por-us43-bi-868737"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/external-images-thumbnails/LYNXNPEH4G0T7_L.jpg"
+                        alt="AT&amp;T fecha fusão de mídias com Discovery por US$43 bi"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/external-images-thumbnails/LYNXNPEH4G0T7_L.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/att-fecha-fusao-de-midias-com-discovery-por-us43-bi-868737"
+                        title="AT&amp;T fecha fusão de mídias com Discovery por US$43 bi" class="title">AT&amp;T fecha
+                        fusão de mídias com Discovery por US$43 bi</a>
+                      <span class="articleDetails"><span>Por Reuters</span><span class="date">&nbsp;-&nbsp;5 horas
+                          atrás</span></span>
+                      <p>Por Kenneth Li e Subrat Patnaik
+                        (Reuters) - A AT&amp;T (NYSE:T)&nbsp;(SA:ATTB34), dona da HBO e da Warner Bros, e a Discovery
+                        (NASDAQ:DISCA)&nbsp;(SA:DCVY35), casa de canais de estilo de vida...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-external-link-wrapper articleItem" data-id="868918" data-content-type="news"
+                    data-link="https://invst.ly/uucrm" data-provider-name="TecMundo">
+                    <a href="https://invst.ly/uucrm" rel="nofollow" target="_blank" class="js-external-link img">
+                      <img class=" lazyloaded" data-src="https://i-invdn-com.akamaized.net/news/LYNXNPEB670Y6_S.jpg"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png'"
+                        alt="Warner e Discovery anunciam fusão e criação de novo streaming"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXNPEB670Y6_S.jpg">
+                    </a>
+                    <div class="textDiv">
+                      <a href="https://invst.ly/uucrm" class="js-external-link title"
+                        title="Warner e Discovery anunciam fusão e criação de novo streaming" rel="nofollow"
+                        target="_blank">Warner e Discovery anunciam fusão e criação de novo streaming</a>
+                      <div class="articleDetails"><span>Por TecMundo</span><span class="date">&nbsp;-&nbsp;9 minutos
+                          atrás</span></div>
+                      <p>A AT&amp;T confirmou nesta segunda-feira (17) a fusão da sua marca WarnerMedia com a Discovery,
+                        para a formação de uma nova empresa independente. O negócio, ainda sujeito à aprovação...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-external-link-wrapper articleItem" data-id="868919" data-content-type="news"
+                    data-link="https://invst.ly/uucrn" data-provider-name="CanalRural">
+                    <a href="https://invst.ly/uucrn" rel="nofollow" target="_blank" class="js-external-link img">
+                      <img class=" lazyloaded" data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEB0M0CA_S.jpg"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png'"
+                        alt="Doação feita por produtores pode inspirar governo no combate à fome, diz Daoud"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEB0M0CA_S.jpg">
+                    </a>
+                    <div class="textDiv">
+                      <a href="https://invst.ly/uucrn" class="js-external-link title"
+                        title="Doação feita por produtores pode inspirar governo no combate à fome, diz Daoud"
+                        rel="nofollow" target="_blank">Doação feita por produtores pode inspirar governo no combate à
+                        fome, diz Daoud</a>
+                      <div class="articleDetails"><span>Por CanalRural</span><span class="date">&nbsp;-&nbsp;15 minutos
+                          atrás</span></div>
+                      <p>Para o comentarista, com a pandemia, percebeu-se que há um sentimento de solidariedade da
+                        população e o agro deu esse exemplo</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-external-link-wrapper articleItem" data-id="868912" data-content-type="news"
+                    data-link="https://invst.ly/uuckk" data-provider-name="MoneyTimes">
+                    <a href="https://invst.ly/uuckk" rel="nofollow" target="_blank" class="js-external-link img">
+                      <img class=" lazyloaded" data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEB3R08Z_S.jpg"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png'"
+                        alt="Ação do Grupo Mateus ganhará novo impulso, assim que mercado sossegar"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEB3R08Z_S.jpg">
+                    </a>
+                    <div class="textDiv">
+                      <a href="https://invst.ly/uuckk" class="js-external-link title"
+                        title="Ação do Grupo Mateus ganhará novo impulso, assim que mercado sossegar" rel="nofollow"
+                        target="_blank">Ação do Grupo Mateus ganhará novo impulso, assim que mercado sossegar</a>
+                      <div class="articleDetails"><span>Por MoneyTimes</span><span class="date">&nbsp;-&nbsp;25 minutos
+                          atrás</span></div>
+                      <p>O balanço do primeiro trimestre provou que o Grupo Mateus (GMAT3) sabe o que está fazendo com
+                        os R$ 2,9 bilhões líquidos que captou na sua oferta pública inicial de ações (IPO, na...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868724">
+                    <a href="/news/stock-market-news/harleydavidson-sobe-apos-citi-elevar-seu-precoalvo-868724"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEE5O0ZG_S.jpg"
+                        alt="Harley-Davidson sobe após Citi elevar seu preço-alvo"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEE5O0ZG_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/harleydavidson-sobe-apos-citi-elevar-seu-precoalvo-868724"
+                        title="Harley-Davidson sobe após Citi elevar seu preço-alvo" class="title">Harley-Davidson sobe
+                        após Citi elevar seu preço-alvo</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;5 horas
+                          atrás</span>
+                        <a href="/news/stock-market-news/harleydavidson-sobe-apos-citi-elevar-seu-precoalvo-868724#comments"
+                          class="js-scrollto-comment commentsBubbleCnt"><i class="commentIcon"></i>1</a>
+                      </span>
+                      <p>Por Christiana Sciaudone
+                        Investing.com - A ação da Harley-Davidson (NYSE:HOG)&nbsp;(SA:H1OG34) subia mais de 5% após o
+                        Citi elevar seu preço-alvo seguindo uma forte recuperação do...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-article-item articleItem   " data-id="868723">
+                    <a href="/news/stock-market-news/getninjas-estreia-em-queda-na-b3-nesta--2afeira-868723"
+                      class="img"><img class=" lazyloaded"
+                        data-src="https://i-invdn-com.akamaized.net/news/LYNXNPEF080OM_S.jpg"
+                        alt="GetNinjas estreia em queda na B3 nesta  2ª-feira"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png';"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXNPEF080OM_S.jpg"></a>
+                    <div class="textDiv">
+                      <a href="/news/stock-market-news/getninjas-estreia-em-queda-na-b3-nesta--2afeira-868723"
+                        title="GetNinjas estreia em queda na B3 nesta  2ª-feira" class="title">GetNinjas estreia em
+                        queda na B3 nesta 2ª-feira</a>
+                      <span class="articleDetails"><span>Por Investing.com</span><span class="date">&nbsp;-&nbsp;5 horas
+                          atrás</span>
+                        <a href="/news/stock-market-news/getninjas-estreia-em-queda-na-b3-nesta--2afeira-868723#comments"
+                          class="js-scrollto-comment commentsBubbleCnt"><i class="commentIcon"></i>6</a>
+                      </span>
+                      <p>Por Ana Carolina Siedschlag
+                        Investing.com - As ações da GetNinjas, plataforma digital de profissionais autônomos, caíam 1,5%
+                        nesta segunda-feira (17), em dia de estreia da...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-external-link-wrapper articleItem" data-id="868902" data-content-type="news"
+                    data-link="https://invst.ly/uucej" data-provider-name="Istoe Dinheiro">
+                    <a href="https://invst.ly/uucej" rel="nofollow" target="_blank" class="js-external-link img">
+                      <img class=" lazyloaded" data-src="https://i-invdn-com.akamaized.net/news/LYNXMPEB59082_S.jpg"
+                        onerror="javascript:this.src='https://i-invdn-com.akamaized.net/news/news-paper_108x81.png'"
+                        alt="Já assolada pela pandemia, Manaus agora sofre com inundações"
+                        src="https://i-invdn-com.akamaized.net/news/LYNXMPEB59082_S.jpg">
+                    </a>
+                    <div class="textDiv">
+                      <a href="https://invst.ly/uucej" class="js-external-link title"
+                        title="Já assolada pela pandemia, Manaus agora sofre com inundações" rel="nofollow"
+                        target="_blank">Já assolada pela pandemia, Manaus agora sofre com inundações</a>
+                      <div class="articleDetails"><span>Por Istoe Dinheiro</span><span class="date">&nbsp;-&nbsp;39
+                          minutos atrás</span></div>
+                      <p>MANAUS (Reuters) – Chuvas fortes no Estado do Amazonas fizeram os rios atingirem níveis quase
+                        recordes, inundando cidades pequenas e ameaçando a capital Manaus com mais um desastre...</p>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  <article class="js-external-link-wrapper articleItem" data-id="868915" data-content-type="news"
+                    data-link="https://invst.ly/uucmr" data-provider-name="TecMundo">
+                    <a href="https://invst.ly/uucmr" rel="nofollow" target="_blank" class="js-external-link img">
+
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+    integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+    integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+    crossorigin="anonymous"></script>
+  <script src="dashboard.js"></script>
+  <script>
+    var login = document.getElementById("login-popup");
+
+    function openForm() {
+    login.style.display = "block";
+    document.getElementById("blur").style.filter = "blur(2px)";
+    }
+
+    function closeForm() {
+      login.style.display = "none";
+      document.getElementById("blur").style.filter = "";
+    }
+
+    function graficos() {
+      document.getElementById("graficos").style.display = "block";
+      document.getElementById("noticias").style.display = "none";
+    }
+
+    function noticias() {
+      document.getElementById("noticias").style.display = "block";
+      document.getElementById("graficos").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+  if (event.target == login) {
+    login.style.display = "none";
+    document.getElementById("blur").style.filter = "";
+  }
+}
+
+  </script>
+</body>
+
+</html>
